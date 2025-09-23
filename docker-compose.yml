@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  app-shoplive:
+    container_name: shoplive
+    build:
+      context: ../shoplive/docker
+      dockerfile: Dockerfile
+    image: app-shoplive
+    ports:
+      - "8080:80"  # ShopLive na porta 8080
+    environment:
+      - HTTPS=false
+    volumes:
+      - ../shoplive/docker/shoplive.conf:/etc/nginx/sites-enabled/shoplive.conf
+      - ../shoplive/docker/php.ini:/etc/php/5.6/fpm/php.ini
+      - ../shoplive/docker/php-fpm.conf:/etc/php/5.6/fpm/pool.d/www.conf
+      - ../shoplive/docker/logs:/var/log/nginx
+      - ../shoplive:/var/www/html
+    networks:
+      - live-network
+
+  app-liveoficial:
+    container_name: liveoficial
+    build:
+      context: ../liveoficial/docker
+      dockerfile: Dockerfile
+    image: app-liveoficial
+    ports:
+      - "8081:80"  # LiveOficial na porta 8081
+    environment:
+      - HTTPS=false
+    volumes:
+      - ../liveoficial/docker/liveoficial.conf:/etc/nginx/sites-enabled/liveoficial.conf
+      - ../liveoficial/docker/php.ini:/etc/php/5.6/fpm/php.ini
+      - ../liveoficial/docker/php-fpm.conf:/etc/php/5.6/fpm/pool.d/www.conf
+      - ../liveoficial/docker/logs:/var/log/nginx
+      - ../liveoficial:/var/www/html
+    networks:
+      - live-network
+
+  # Nginx Proxy para unificar na porta 80
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-proxy.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app-shoplive
+      - app-liveoficial
+    networks:
+      - live-network
+
+networks:
+  live-network:
+    driver: bridge
+  ecommerce:
+    external: true
