@@ -47,28 +47,12 @@ O projeto consiste em três serviços principais:
 
 2. **Inicie os containers:**
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 3. **Acesse as aplicações:**
-   - ShopLive: http://localhost:8080
-   - LiveOficial: http://localhost:8081
-
-## 📁 Volumes
-
-Os volumes são configurados de forma relativa ao diretório do projeto:
-
-- **ShopLive:**
-  - Configurações Nginx
-  - Configurações PHP
-  - Logs
-  - Código-fonte da aplicação
-
-- **LiveOficial:**
-  - Configurações Nginx
-  - Configurações PHP
-  - Logs
-  - Código-fonte da aplicação
+   - ShopLive: http://shoplive.local/
+   - LiveOficial: http://liveoficial.local/live/principal
 
 ## 🔧 Configuração do Proxy
 
