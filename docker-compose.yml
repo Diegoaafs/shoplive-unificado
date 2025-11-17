@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app-shoplive:
     container_name: shoplive
@@ -19,6 +17,7 @@ services:
       - ../shoplive:/var/www/html
     networks:
       - live-network
+      - ecommerce
 
   app-liveoficial:
     container_name: liveoficial
@@ -38,6 +37,7 @@ services:
       - ../liveoficial:/var/www/html
     networks:
       - live-network
+      - ecommerce
 
   # Nginx Proxy para unificar na porta 80
   nginx-proxy:
@@ -52,6 +52,7 @@ services:
       - app-liveoficial
     networks:
       - live-network
+      - ecommerce
 
 networks:
   live-network:
