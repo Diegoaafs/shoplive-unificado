@@ -45,12 +45,48 @@ O projeto consiste em três serviços principais:
    git clone [url-do-repositório-liveoficial] ../liveoficial
    ```
 
-2. **Inicie os containers:**
+2. **Configure os virtualhosts (Docker Desktop):**
+
+   Os virtualhosts precisam ser configurados no arquivo de hosts do seu sistema para resolver os domínios locais.
+
+   ### Linux/Mac: Editar `/etc/hosts`
+   ```bash
+   sudo nano /etc/hosts
+   ```
+   
+   Adicione as seguintes linhas:
+   ```
+   127.0.0.1  shoplive.local
+   127.0.0.1  liveoficial.local www.liveoficial.local
+   ```
+   
+   Salve o arquivo (Ctrl+O, Enter, Ctrl+X no nano).
+
+   ### Windows: Editar `C:\Windows\System32\drivers\etc\hosts`
+   1. Abra o Notepad como Administrador
+   2. Vá para **Arquivo** → **Abrir** e navegue até:
+      ```
+      C:\Windows\System32\drivers\etc\hosts
+      ```
+   3. Adicione as linhas:
+      ```
+      127.0.0.1  shoplive.local
+      127.0.0.1  liveoficial.local www.liveoficial.local
+      ```
+   4. Salve o arquivo
+
+   ### Verificar configuração
+   ```bash
+   ping shoplive.local
+   ping liveoficial.local
+   ```
+
+3. **Inicie os containers:**
    ```bash
    docker compose up -d
    ```
 
-3. **Acesse as aplicações:**
+4. **Acesse as aplicações:**
    - ShopLive: http://shoplive.local/
    - LiveOficial: http://liveoficial.local/live/principal
 
